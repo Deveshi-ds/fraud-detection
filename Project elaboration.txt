@@ -1,0 +1,142 @@
+
+ 1. Data Cleaning Including Missing Values, Outliers, and Multi-collinearity
+
+Data Cleaning Steps:
+-Handling Missing Values:
+The dataset was checked for missing values. The SimpleImputer with a median strategy was used to impute missing values in columns
+like oldbalanceOrg, oldbalanceDest, newbalanceOrig, and newbalanceDest.
+
+-Outlier Detection and Treatment:
+Here, the Interquartile Range method was used in outlier detection and removal.
+For each numerical column, outliers were detected by the IQR method, and rows containing these outliers were removed from the dataset.
+
+-Dealing with Multicollinearity
+The Variance Inflation Factor was calculated for numerical features. Features that report high values of VIF have multicollinearity.
+ Remove those features iteratively until all features are at values of VIF below the threshold to reduce multicollinearity.
+
+2.Fraud Detection Model in Elaboration
+The fraud detection model applied is the XGBoost, which is one of the robust and efficient gradient boosting frameworks.
+ The reasons for using XGBoost are its effectiveness with high-dimensional and large datasets and its sterling performance
+ pertaining to classification tasks.
+
+-Balancing using SMOTE:
+Class imbalance in the dataset was dealt with using Synthetic Minority Over-sampling Technique.
+ In this technique, synthetic examples of the minority class—fraudulent transactions—are generated so
+  that the model is not biased towards the majority class, the non-fraudulent transactions.
+
+-Model Training and Hyperparameter Tuning
+The hyperparameters of the XGBoost were tuned using Optuna, an automated hyperparameter optimization framework.
+This tuning vastly improved the model performance by finding the best hyperparameters.
+
+3.Selecting Variables to be Included in the Model
+-Variable Selection:
+The variables were selected by domain knowledge and exploratory data analysis.
+Some of the important features included amount, old balance of origin and destination accounts,
+and new balance of origin and destination accounts.
+
+The feature importance was checked through Random Forest, and the less important features were removed but all
+relevant features were used because the VIF analysis didn't recommend any further removal upon adjustment.
+
+4. Plotting the best set of tools to demonstrate model performance
+
+-Classification Report:
+The model performance was checked against test data using precision, recall, and the F1-score.
+All these metrics provide insights into how well the model is doing on fraudulent transaction identification.
+
+-ROC-AUC Score
+Compute the ROC-AUC score to show the model performance in class differentiation. A high ROC-AUC score is a pointer to good model performance.
+
+-Cross-Validation:
+In order to make sure that model performance is consistent on various subsets of data,
+the process of cross-validation needs to be applied to the entire pipeline. This would prove the model's robustness.
+
+5. Key factors that predict fraudulent customer
+
+-Transaction Amount: Large amounts or huge changes can be indicative of fraud.
+
+-Old and New Balances at Origin and Destination: A sudden change in balance or zero balances after transaction could be indicative of fraud.
+-Outliers in Balances: Extreme values in account balances often align with fraudulent transactions.
+
+
+
+ 6. Do These Factors Make Sense? 
+
+ Yes, the Factors Make Sense:
+
+-Amount of Transaction:
+ Why it Makes Sense: Abnormally large transaction amounts or patterns that differ from a customer's regular spending behavior
+  indicate that something is wrong and there's foul play. Also pertaining to this, since fraudsters are arbitraging
+  as much as they can during this period, they tend to result in larger-than-usual transactions.
+   Example: A sharp, large transaction that has no place in the customer's history could raise a red flag worth investigating.
+
+-Difference Between Old Balance and New Balance of Origin and Destination Accounts:
+ Why it Makes Sense: If big differences appear in the account balances (which turn `oldbalanceOrg` or `newbalanceOrig` suddenly to zero or negative`),
+  such cases might indicate a fraudulent money transfer, as fraud perpetrators tend to transfer the funds to zero out or lay low the accounts.
+    Example: An account that frequently ends up with a very low or zero balance post transaction may be laundering money
+    or committing fraudulent transfers.
+
+-Outliers in Balances:
+ Why it Makes Sense: Extreme values of account balances, either very high or very low, could show that something is wrong with
+  the way the account is being used. Such patterns are symptomatic of accounts being pass-throughs for illicit transactions.
+    Example:Balances that are consistently high without high-value transactions to explain them might indicate an account that
+    is used to aggregate before siphoning the funds.
+
+-Consistency with Fraud Patterns:
+   Why it Makes Sense: Found factors match known patterns of fraudulent behavior such as anomalies in transaction amounts
+    and irregular changes in account balance.
+
+These logically are indicators of fraud based on history and typical scenarios of fraud and thus helpful in detection of suspicious activity.
+
+ 7. Preventions to Be Adopted While the Company Upgrades the Infrastructure
+
+Upgrading the infrastructure to enhance fraud detection and prevention includes :—
+
+-Real-time transaction monitoring:
+Implementation: Put into place real-time transaction analytical systems that will identify anomalies
+ while they are occurring, providing flags accordingly.
+   \Benefit: Be in a better position to immediately intervene in suspicious transactions and greatly reduce
+    the likelihood that fraudulent transactions are processed.
+
+-Enhanced Security Protocols
+  Implementation: Utilize advanced encryption standards together with multi-factor authentication in
+  safeguarding customer data, ensuring its integrity for customers, and ensuring safe transactions.
+   Benefit: Reduces or minimizes access by unauthorized users, thus limiting exposure for fraudsters to
+    easily make transactions that would be able to pass without detection.
+
+-*Behavioral Analytics
+   Implementation:Utilize machine learning models to discern and predict common user behavior.
+    This would be instrumental in detecting deviations in behavior, which could culminate in fraud.
+   Benefit:Dynamic during the detection of potential fraud paradigms as compared to static rules.
+
+-Continuous Model Updates and Retraining
+   Implementation: Regularly train the fraud detection model with new data to help enterprises keep pace with
+    newly devised fraudulent tactics and methods.
+   Benefit: The model is relevant and active against new form of fraud.
+
+-User Education and Awareness:
+   Implementation:Programs raising awareness for customers and employees regarding the identification and reporting of suspicious activities.
+   Benefit: The stakeholders can identify and take action regarding a potential fraud, thereby supporting the technical measures.
+
+8.Evaluation techniques to check whether They Are Effective or not
+
+If an organization has already implemented the fraud prevention measures, then the evaluation of their effectiveness is important.
+ The management can take the following steps and use the KPIs and metrics mentioned here:
+
+-Key Performance Indicators (KPIs):
+   Detection Rate: Monitor the percent of fraudulent transactions detected in comparison to pre-implementation levels.
+   False Positives/Negatives: Monitor the false alarm rate and missed frauds in order to operate the system and
+    upgrade the precision and recall of it.
+
+-Post-Implementation Audits:
+   Routine Review: There should be routine audits of flagged transactions for accuracy of the detection and for finding any gaps in detection.
+   Feedback loops: Implement a mechanism of feeding the results of these audits back into the models for improved detection.
+
+-User and Stakeholder Feedback:
+   Surveys and Reports: Surveys and reports from users, both within and outside the organization,
+   of their perception of the extent to which the new system is secure and effective.
+   Customer Satisfaction: Indicators of changes in customer satisfaction and the level of trust post implementation of the new system.
+
+-Comparison with Historical Data:
+   Trending: The current rates and patterns of fraud detection should be compared with the information retrieved from
+   historical data to observe any improvements that are noticeable.
+   Anomaly Detection: Analyze if the system is able to capture
